@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BookAPIagro.Controllers.Utilities;
+using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,6 +21,14 @@ namespace BookAPIagro.Controllers
         public string Get(int id)
         {
             return "value";
+        }
+
+        //GET api/<BooksController>/search
+        [HttpGet("search")]
+        public string Search(BookQuery bookQuery)
+        {
+            return bookQuery.Genre[0];
+
         }
     }
 }
