@@ -1,5 +1,6 @@
 ﻿using BookAPIagro.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace BookAPIagro.Controllers.Utilities
 {
@@ -7,19 +8,20 @@ namespace BookAPIagro.Controllers.Utilities
     {
         [FromQuery (Name = "title")]
         public string? Title { get; set; }
-        [FromQuery (Name = "price")]
+        [FromQuery(Name = "price")]
         public decimal? Price { get; set; }
-        [FromQuery (Name = "date")]
-        public DateOnly? Date { get; set; }
-        [FromQuery (Name = "pageCount")]
+        [FromQuery(Name = "startPublishDate")]
+        public DateTime? StartPublishDate { get; set; } = new DateTime();
+        [FromQuery(Name = "endPublishDate")]
+        public DateTime? EndPublishDate { get; set; } = new DateTime();
+        [FromQuery(Name = "pageCount")]
         public int? PageCount { get; set; }
-        [FromQuery (Name = "author")]
-        public string[]? Author { get; set; } = new string[] { };
-        [FromQuery (Name = "illustrator")]
-        public string[]? Illustrator { get; set; } = new string[] { };
-        [FromQuery (Name = "genre")]
-        public string[]? Genre { get; private set; } = new string[] { };
-        
+        [FromQuery(Name = "author")]
+        public List<string>? Author { get; set; } = [];
+        [FromQuery(Name = "illustrator")]
+        public List<string>? Illustrator { get; set; } = [];
+        [FromQuery(Name = "genre")]
+        public List<string>? Genre { get; set; } = [];
 
     }
 }

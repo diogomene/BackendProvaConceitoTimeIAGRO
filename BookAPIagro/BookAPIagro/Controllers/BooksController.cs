@@ -24,11 +24,14 @@ namespace BookAPIagro.Controllers
         }
 
         //GET api/<BooksController>/search
-        [HttpGet("search")]
-        public string Search(BookQuery bookQuery)
+        [HttpGet("query")]
+        public IActionResult Query(BookQuery bookQuery)
         {
-            return bookQuery.Genre[0];
-
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(bookQuery);
         }
     }
 }
