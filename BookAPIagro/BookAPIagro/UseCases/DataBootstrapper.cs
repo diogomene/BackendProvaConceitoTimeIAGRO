@@ -8,7 +8,7 @@ namespace BookAPIagro.UseCases
         {
             string jsonPath = "DataAccess/books.json";
             BookStore bookStore = BookStore.GetInstance();
-            bookStore.StoreList = (BookStoreList)BooksLoader.LoadBooks(jsonPath).ToList();
+            bookStore.StoreList = new BookStoreList(BooksLoader.LoadBooks(jsonPath).ToList());
         }
     }
 }

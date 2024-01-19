@@ -6,15 +6,15 @@ namespace BookAPIagro.Controllers.Utilities
 {
     public class BookQuery
     {
-        public string? Title { get; set; }
-        public decimal? MinPrice { get; set; }
-        public decimal? MaxPrice { get; set; }
-        public DateTime? StartPublishDate { get; set; } = new DateTime();
-        public DateTime? EndPublishDate { get; set; } = new DateTime();
-        public uint? MinPageCount { get; set; }
-        public uint? MaxPageCount { get; set; }
-        public List<string>? Author { get; set; } = [];
-        public List<string>? Illustrator { get; set; } = [];
-        public List<string>? Genre { get; set; } = [];
+        public string? Title { get; set; } = default;
+        public decimal? MinPrice { get; set; } = default;
+        public decimal? MaxPrice { get; set; } = default;
+        public DateTime? StartPublishDate { get; set; } = default;
+        public DateTime? EndPublishDate { get; set; } = default;
+        public uint? MinPageCount { get; set; } = default;
+        public uint? MaxPageCount { get; set; } 
+        public List<string>? Author { get; set; } = default;
+        public List<string>? Illustrator { get; set; } = default;
+        public List<string>? Genre { get; set; } = default;
     }
 }

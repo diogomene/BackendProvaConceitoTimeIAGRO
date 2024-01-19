@@ -33,7 +33,7 @@ namespace BookAPIagro.Controllers
 
         [HttpGet("test")]
         public IActionResult Test() {
-            var res = BookStore.GetInstance().StoreList.ToList();
+            var res = BookStore.GetInstance().StoreList.BookList.ToList();
             return Ok(res);
         }
 

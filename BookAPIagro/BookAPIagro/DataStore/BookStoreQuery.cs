@@ -6,37 +6,51 @@ namespace BookAPIagro.DataStore {
 
         public static Book? GetById(this BookStoreList bookStore, uint id)
         {
-            return bookStore.Find(b => b.Id == id);
+            return bookStore.BookList.Find(b => b.Id == id);
         }
         public static BookStoreList GetByTitle(this BookStoreList bookStore, string title)
         {
-            return (BookStoreList)bookStore.FindAll(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
+            return new BookStoreList(
+                bookStore.BookList.FindAll(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase))
+                );
         }
         public static BookStoreList GetByPriceRange(this BookStoreList bookStore, Range<decimal> priceRange)
         {
-            return (BookStoreList)bookStore.FindAll(b => priceRange.Contains(b.Price));
+            return new BookStoreList(
+                bookStore.BookList.FindAll(b => priceRange.Contains(b.Price))
+                );
         }
         public static BookStoreList GetByPublishDateRange(this BookStoreList bookStore, Range<DateOnly> publishDateRange)
         {
-            return (BookStoreList)bookStore.FindAll(b => publishDateRange.Contains(b.PublishDate));
+            return new BookStoreList(
+                bookStore.BookList.FindAll(b => publishDateRange.Contains(b.PublishDate))
+                );
         }
         public static BookStoreList GetByPageCountRange(this BookStoreList bookStore, Range<uint> pageCountRange)
         {
-            return (BookStoreList)bookStore.FindAll(b => pageCountRange.Contains(b.PageCount));
+            return new BookStoreList(
+                bookStore.BookList.FindAll(b => pageCountRange.Contains(b.PageCount))
+                );
         }
         public static BookStoreList GetByAuthors(this BookStoreList bookStore, IEnumerable<string> authors)
         {
-            return (BookStoreList)bookStore.FindAll(b => b.Author.Any(a => authors.Any(aa=> aa.Contains(a.Name, StringComparison.OrdinalIgnoreCase) )));
+            return new BookStoreList(
+                bookStore.BookList.FindAll(b => b.Author.Any(a => authors.Any(aa=> aa.Contains(a.Name, StringComparison.OrdinalIgnoreCase) )))
+                );
         }
 
         public static BookStoreList GetByGenres(this BookStoreList bookStore, IEnumerable<string> genres)
         {
-            return (BookStoreList)bookStore.FindAll(b => b.Genre.Any(g => genres.Any(gg => gg.Contains(g.Name, StringComparison.OrdinalIgnoreCase) )));
+            return new BookStoreList(
+                bookStore.BookList.FindAll(b => b.Genre.Any(g => genres.Any(gg => gg.Contains(g.Name, StringComparison.OrdinalIgnoreCase) )))
+                );
         }
 
         public static BookStoreList GetByIllustrators(this BookStoreList bookStore, IEnumerable<string> illustrators)
         {
-            return (BookStoreList)bookStore.FindAll(b => b.Illustrator.Any(i => illustrators.Any(ii=> ii.Contains(i.Name, StringComparison.OrdinalIgnoreCase) )));
+            return new BookStoreList(
+                bookStore.BookList.FindAll(b => b.Illustrator.Any(i => illustrators.Any(ii=> ii.Contains(i.Name, StringComparison.OrdinalIgnoreCase) )))
+                );
         }
     }
 
