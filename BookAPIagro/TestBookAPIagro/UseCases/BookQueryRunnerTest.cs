@@ -392,5 +392,39 @@ namespace TestBookAPIagro.UseCases
             Assert.IsTrue(result.Any(b => b.Title == "Harry Potter and the Goblet of Fire"));
 
         }
+
+        [TestMethod]
+        public void GetByAllQueryParametersTest()
+        {
+            var query = new BookQuery();
+            query.Title = "Journey to the Center of the Earth";
+            query.MinPrice = 10.00m;
+            query.StartPublishDate = new DateTime(1864, 11, 25);
+            query.MinPageCount = 183;
+            query.Author = new List<string> { "Jules Verne" };
+            query.Illustrator = new List<string> { "Édouard Riou" };
+            query.Genre = new List<string> { "Science Fiction" };
+            var result = BookQueryRunner.RunQuery(query);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(1, result.Count());
+            Assert.IsTrue(result.Any(b => b.Title == "Journey to the Center of the Earth"));
+
+        }
+
+        [TestMethod]
+        public void GetByGenreAndPriceRangeTest()
+        {
+            var query = new BookQuery();
+            query.Genre = new List<string> { "Fantasy Fiction" };
+            query.MaxPrice = 10.0m;
+            var result = BookQueryRunner.RunQuery(query);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(2, result.Count());
+            Assert.IsTrue(result.Any(b => b.Title == "Harry Potter and the Goblet of Fire"));
+            Assert.IsTrue(result.Any(b => b.Title == "The Lord of the Rings"));
+
+        }
     }
 }
