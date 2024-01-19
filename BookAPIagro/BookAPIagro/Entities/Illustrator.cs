@@ -1,7 +1,6 @@
 ﻿namespace BookAPIagro.Entities
 {
-    public class Illustrator : Person
+    public class Illustrator(string name) : Person(name)
     {
-        public Illustrator(string name) : base(name) { }
     }
 }

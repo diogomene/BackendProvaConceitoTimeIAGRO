@@ -1,11 +1,7 @@
 ﻿namespace BookAPIagro.Entities
 {
-    public class Genre
+    public class Genre(string name)
     {
-        public string Name { get; set; }
-        public Genre(string name)
-        {
-            Name = name;
-        }
+        public string Name { get; set; } = name;
     }
 }

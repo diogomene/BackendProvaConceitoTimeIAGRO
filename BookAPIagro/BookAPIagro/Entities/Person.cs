@@ -1,11 +1,7 @@
 ﻿namespace BookAPIagro.Entities
 {
-    public abstract class Person
+    public abstract class Person(string name)
     {
-        public string Name { get; set; }
-        public Person(string name)
-        {
-            Name = name;
-        }
+        public string Name { get; set; } = name;
     }
 }

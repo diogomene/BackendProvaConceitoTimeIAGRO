@@ -1,7 +1,6 @@
 ﻿namespace BookAPIagro.Entities
 {
-    public class Author : Person
+    public class Author(string name) : Person(name)
     {
-        public Author(string name) : base(name) { }
     }
 }
