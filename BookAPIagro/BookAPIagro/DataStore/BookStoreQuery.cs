@@ -35,21 +35,21 @@ namespace BookAPIagro.DataStore {
         public static BookStoreList GetByAuthors(this BookStoreList bookStore, IEnumerable<string> authors)
         {
             return new BookStoreList(
-                bookStore.BookList.FindAll(b => b.Author.Any(a => authors.Any(aa=> aa.Contains(a.Name, StringComparison.OrdinalIgnoreCase) )))
+                bookStore.BookList.FindAll(b => b.Author.Any(bookAuthor => authors.Any(searchedAuthor=> bookAuthor.Name.Contains(searchedAuthor, StringComparison.OrdinalIgnoreCase) )))
                 );
         }
 
         public static BookStoreList GetByGenres(this BookStoreList bookStore, IEnumerable<string> genres)
         {
             return new BookStoreList(
-                bookStore.BookList.FindAll(b => b.Genre.Any(g => genres.Any(gg => gg.Contains(g.Name, StringComparison.OrdinalIgnoreCase) )))
+                bookStore.BookList.FindAll(b => b.Genre.Any(bookGenre => genres.Any(searchedGenre => bookGenre.Name.Contains(searchedGenre, StringComparison.OrdinalIgnoreCase) )))
                 );
         }
 
         public static BookStoreList GetByIllustrators(this BookStoreList bookStore, IEnumerable<string> illustrators)
         {
             return new BookStoreList(
-                bookStore.BookList.FindAll(b => b.Illustrator.Any(i => illustrators.Any(ii=> ii.Contains(i.Name, StringComparison.OrdinalIgnoreCase) )))
+                bookStore.BookList.FindAll(b => b.Illustrator.Any(bookIllustrator => illustrators.Any(searchedIllustrator=> bookIllustrator.Name.Contains(searchedIllustrator, StringComparison.OrdinalIgnoreCase) )))
                 );
         }
     }
