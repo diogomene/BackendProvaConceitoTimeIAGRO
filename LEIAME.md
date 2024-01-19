@@ -4,3 +4,4 @@
 - BookAPIagro: Pasta com o projeto C# em si.
     - BookAPIagro: Projeto de WebServico que disponibiliza a API
     - TestBookAPIagro: Projeto de teste, que utiliza os arquivos do proneto `BookAPIagro`
+    - `BookAPIagro.sln`: Arquivo de solução
