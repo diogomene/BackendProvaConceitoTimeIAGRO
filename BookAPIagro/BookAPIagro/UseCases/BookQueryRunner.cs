@@ -8,16 +8,39 @@ namespace BookAPIagro.UseCases
     {
         public static IEnumerable<Book> RunQuery(BookQuery query)
         {
-            BookStore bookStore = new BookStore();
-            IEnumerable<Book> result = bookStore.StoreList;
+            BookStoreList result = BookStore.GetInstance().StoreList;
+
             if(query.Title != null)
             {
-                result = bookStore.GetByTitle(query.Title.ToLower());
+                result = result.GetByTitle(query.Title.ToLower());
             }
-            if(query.Author != null)
+            if(query.MinPrice != null || query.MaxPrice != null)
             {
-                result = result.GetByAuthor(query.Author.ToLower());
+                result = result.GetByPriceRange(new Range<decimal>(query.MinPrice, query.MaxPrice));
             }
+            if(query.StartPublishDate != null || query.EndPublishDate != null)
+            {
+                DateOnly start = DateOnly.FromDateTime(query.StartPublishDate ?? DateTime.MinValue);
+                DateOnly end = DateOnly.FromDateTime(query.EndPublishDate ?? DateTime.MaxValue);
+                result = result.GetByPublishDateRange(new Range<DateOnly>(start, end));
+            }
+            if(query.MinPageCount != null || query.MaxPageCount != null)
+            {
+                result = result.GetByPageCountRange(new Range<uint>(query.MinPageCount, query.MaxPageCount));
+            }
+            if(query.Author != null && query.Author.Count > 0)
+            {
+                result = result.GetByAuthors(query.Author);
+            }
+            if(query.Illustrator != null && query.Illustrator.Count > 0)
+            {
+                result = result.GetByIllustrators(query.Illustrator);
+            }
+            if(query.Genre != null && query.Genre.Count > 0)
+            {
+                result = result.GetByGenres(query.Genre);
+            }
+            return result;
         }
     }
 }
