@@ -22,7 +22,7 @@ namespace BookAPIagro.Controllers
         }
 
         [HttpGet("query")]
-        public IActionResult Query(BookQuery bookQuery)
+        public IActionResult Query([FromQuery] BookQuery bookQuery)
         {
             if(!ModelState.IsValid)
             {
