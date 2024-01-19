@@ -4,7 +4,7 @@ namespace BookAPIagro.DataStore
 {
     public class BookStore
     {
-        public List<Book> Store = [];
+        public BookStoreList StoreList = [];
         private static BookStore? Singleton;
         private static readonly object threadLock = new();
 
@@ -23,4 +23,6 @@ namespace BookAPIagro.DataStore
             return Singleton;
         }
     }
+
+    public class BookStoreList : List<Book>;
 }

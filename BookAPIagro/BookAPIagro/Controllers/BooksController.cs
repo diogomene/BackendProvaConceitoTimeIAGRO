@@ -28,12 +28,12 @@ namespace BookAPIagro.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(bookQuery);
+            return Ok(BookQueryRunner.RunQuery(bookQuery));
         }
 
         [HttpGet("test")]
         public IActionResult Test() {
-            var res = BookStore.GetInstance().Store.ToList();
+            var res = BookStore.GetInstance().StoreList.ToList();
             return Ok(res);
         }
 

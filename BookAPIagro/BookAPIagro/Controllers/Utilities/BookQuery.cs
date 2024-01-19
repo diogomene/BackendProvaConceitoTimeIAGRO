@@ -11,7 +11,8 @@ namespace BookAPIagro.Controllers.Utilities
         public decimal? MaxPrice { get; set; }
         public DateTime? StartPublishDate { get; set; } = new DateTime();
         public DateTime? EndPublishDate { get; set; } = new DateTime();
-        public int? PageCount { get; set; }
+        public uint? MinPageCount { get; set; }
+        public uint? MaxPageCount { get; set; }
         public List<string>? Author { get; set; } = [];
         public List<string>? Illustrator { get; set; } = [];
         public List<string>? Genre { get; set; } = [];

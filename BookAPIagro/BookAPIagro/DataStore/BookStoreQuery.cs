@@ -4,51 +4,56 @@ namespace BookAPIagro.DataStore {
     public static class BookStoreQuery
     {
 
-        public static Book? GetById(this BookStore bookStore, uint id)
+        public static Book? GetById(this BookStoreList bookStore, uint id)
         {
-            return bookStore.Store.Find(b => b.Id == id);
+            return bookStore.Find(b => b.Id == id);
         }
-        public static IEnumerable<Book> GetByTitle(this BookStore bookStore, string title)
+        public static BookStoreList GetByTitle(this BookStoreList bookStore, string title)
         {
-            return bookStore.Store.FindAll(b => b.Title.Contains(title));
+            return (BookStoreList)bookStore.FindAll(b => b.Title.Contains(title, StringComparison.OrdinalIgnoreCase));
         }
-        public static IEnumerable<Book> GetByPriceRange(this BookStore bookStore, Range<decimal> priceRange)
+        public static BookStoreList GetByPriceRange(this BookStoreList bookStore, Range<decimal> priceRange)
         {
-            return bookStore.Store.FindAll(b => priceRange.Contains(b.Price));
+            return (BookStoreList)bookStore.FindAll(b => priceRange.Contains(b.Price));
         }
-        public static IEnumerable<Book> GetByPublishDateRange(this BookStore bookStore, Range<DateOnly> publishDateRange)
+        public static BookStoreList GetByPublishDateRange(this BookStoreList bookStore, Range<DateOnly> publishDateRange)
         {
-            return bookStore.Store.FindAll(b => publishDateRange.Contains(b.PublishDate));
+            return (BookStoreList)bookStore.FindAll(b => publishDateRange.Contains(b.PublishDate));
         }
-
-        public static IEnumerable<Book> GetByAuthors(this BookStore bookStore, IEnumerable<string> authors)
+        public static BookStoreList GetByPageCountRange(this BookStoreList bookStore, Range<uint> pageCountRange)
         {
-            return bookStore.Store.FindAll(b => b.Author.Any(a => authors.Contains(a.Name)));
+            return (BookStoreList)bookStore.FindAll(b => pageCountRange.Contains(b.PageCount));
         }
-
-        public static IEnumerable<Book> GetByGenres(this BookStore bookStore, IEnumerable<string> genres)
+        public static BookStoreList GetByAuthors(this BookStoreList bookStore, IEnumerable<string> authors)
         {
-            return bookStore.Store.FindAll(b => b.Genre.Any(g => genres.Contains(g.Name)));
+            return (BookStoreList)bookStore.FindAll(b => b.Author.Any(a => authors.Any(aa=> aa.Contains(a.Name, StringComparison.OrdinalIgnoreCase) )));
         }
 
-        public static IEnumerable<Book> GetByIllustrators(this BookStore bookStore, IEnumerable<string> illustrators)
+        public static BookStoreList GetByGenres(this BookStoreList bookStore, IEnumerable<string> genres)
         {
-            return bookStore.Store.FindAll(b => b.Illustrator.Any(i => illustrators.Contains(i.Name)));
+            return (BookStoreList)bookStore.FindAll(b => b.Genre.Any(g => genres.Any(gg => gg.Contains(g.Name, StringComparison.OrdinalIgnoreCase) )));
+        }
+
+        public static BookStoreList GetByIllustrators(this BookStoreList bookStore, IEnumerable<string> illustrators)
+        {
+            return (BookStoreList)bookStore.FindAll(b => b.Illustrator.Any(i => illustrators.Any(ii=> ii.Contains(i.Name, StringComparison.OrdinalIgnoreCase) )));
         }
     }
 
-    public class Range<T>(T? Min, T? Max) where T:IComparable
+    public class Range<T>(T? Min, T? Max) where T : struct, IComparable<T>
     {
+
         public T? Min { get; set; } = Min;
         public T? Max { get; set; } = Max;
+
         public bool Contains(T value)
         {
-            if (Min != null && value.CompareTo(Min) < 0)
+            if (Min.HasValue && value.CompareTo((T)Min) < 0)
             {
                 return false;
             }
 
-            if (Max != null && value.CompareTo(Max) > 0)
+            if (Max.HasValue && value.CompareTo((T)Max) > 0)
             {
                 return false;
             }
