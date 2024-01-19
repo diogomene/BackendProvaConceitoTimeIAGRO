@@ -1,5 +1,6 @@
 ﻿using BookAPIagro.Controllers.Utilities;
 using BookAPIagro.DataStore;
+using BookAPIagro.Entities;
 using BookAPIagro.UseCases;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,15 +11,23 @@ namespace BookAPIagro.Controllers
     public class BooksController : ControllerBase
     {
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(BookServicesFacade.getAllBooks());
         }
 
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(uint id)
         {
-            return "value";
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return Ok(BookServicesFacade.getBookById(id));
         }
 
         [HttpGet("query")]
@@ -28,13 +37,7 @@ namespace BookAPIagro.Controllers
             {
                 return BadRequest(ModelState);
             }
-            return Ok(BookQueryRunner.RunQuery(bookQuery));
-        }
-
-        [HttpGet("test")]
-        public IActionResult Test() {
-            var res = BookStore.GetInstance().StoreList.BookList.ToList();
-            return Ok(res);
+            return Ok(BookQueryRunner.RunQuery(bookQuery).Select(book=> new BookDTO(book) ));
         }
 
     }

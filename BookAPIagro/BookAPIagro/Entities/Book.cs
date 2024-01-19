@@ -11,4 +11,6 @@
         public List<Illustrator> Illustrator { get; private set; } = illustrator;
         public List<Genre> Genre { get; private set; } = genre;
     }
+
+
 }
