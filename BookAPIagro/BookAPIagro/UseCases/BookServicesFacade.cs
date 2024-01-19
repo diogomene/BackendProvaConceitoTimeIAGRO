@@ -10,9 +10,14 @@ namespace BookAPIagro.UseCases
         {
             return BookStore.GetInstance().StoreList.BookList.ToArray().Select(book => new BookDTO(book));
         }
-        public static Book? getBookById(uint id)
+        public static BookDTO? getBookById(uint id)
         {
-            return BookStore.GetInstance().StoreList.GetById(id);
+            Book? book = BookStore.GetInstance().StoreList.GetById(id);
+            if(book != default)
+            {
+                return new BookDTO(book);
+            }
+            return default;
         }
 
         public static IEnumerable<BookDTO> queryBookList(BookQuery bookQuery)
