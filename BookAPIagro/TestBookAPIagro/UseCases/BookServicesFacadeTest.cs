@@ -41,6 +41,7 @@ namespace TestBookAPIagro.UseCases
             Assert.AreEqual(result.Id, (uint)1);
             Assert.AreEqual(result.Name, "Journey to the Center of the Earth");
             Assert.AreEqual(result.Price, 10.00m);
+            Assert.AreEqual(result.Frete, 2.00m);
             Assert.AreEqual(result.Specifications.Originally_published, "25/11/1864");
             Assert.AreEqual(result.Specifications.Page_count, (uint)183);
             Assert.AreEqual(result.Specifications.Author[0], "Jules Verne");

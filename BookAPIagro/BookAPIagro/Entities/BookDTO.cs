@@ -11,6 +11,8 @@ namespace BookAPIagro.Entities
         public string Name { get; set; } = "";
         [JsonPropertyName("price")]
         public decimal Price { get; set; }
+        [JsonPropertyName("frete")]
+        public decimal Frete { get; set; }
         [JsonPropertyName("specifications")]
         public BookSpecs Specifications { get; set; } = new BookSpecs();
 
@@ -25,6 +27,7 @@ namespace BookAPIagro.Entities
             this.Specifications.Page_count = book.PageCount;
             this.Specifications.Illustrator = book.Illustrator.Select(i => i.Name).ToList();
             this.Specifications.Genres = book.Genre.Select(g => g.Name).ToList();
+            this.Frete = book.Frete;
         }
 
         public Book ToBook()

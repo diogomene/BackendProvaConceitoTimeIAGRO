@@ -39,6 +39,10 @@ namespace BookAPIagro.UseCases
             {
                 result = result.GetByGenres(query.Genre);
             }
+            if(query.orderPriceBy != default && query.orderPriceBy != null)
+            {
+                result = result.OrderByPrice(query.orderPriceBy.Value);
+            }
             return result.BookList;
         }
     }

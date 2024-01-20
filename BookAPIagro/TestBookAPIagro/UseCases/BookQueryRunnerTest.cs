@@ -426,5 +426,32 @@ namespace TestBookAPIagro.UseCases
             Assert.IsTrue(result.Any(b => b.Title == "The Lord of the Rings"));
 
         }
+
+        [TestMethod]
+        public void GetAllBooksByAscPriceOrderTest()
+        {
+            var query = new BookQuery();
+            query.orderPriceBy = OrderType.Asc;
+            var result = BookQueryRunner.RunQuery(query);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(5, result.Count());
+            Assert.AreEqual("The Lord of the Rings", result.First().Title);
+            Assert.AreEqual("Fantastic Beasts and Where to Find Them: The Original Screenplay", result.Last().Title);
+        }
+
+        [TestMethod]
+        public void GetAllBooksByDescPriceOrderTest()
+        {
+            var query = new BookQuery();
+            query.orderPriceBy = OrderType.Desc;
+            var result = BookQueryRunner.RunQuery(query);
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual(5, result.Count());
+            Assert.AreEqual("Fantastic Beasts and Where to Find Them: The Original Screenplay", result.First().Title);
+            Assert.AreEqual("The Lord of the Rings", result.Last().Title);
+            
+        }
     }
 }

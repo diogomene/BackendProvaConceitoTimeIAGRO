@@ -1,4 +1,6 @@
-﻿namespace BookAPIagro.Entities
+﻿using BookAPIagro.UseCases;
+
+namespace BookAPIagro.Entities
 {
     public class Book(uint id, string title, decimal price, DateOnly publishDate, uint pageCount, List<Author> author, List<Illustrator> illustrator, List<Genre> genre)
     {
@@ -10,6 +12,7 @@
         public List<Author> Author { get; private set; } = author;
         public List<Illustrator> Illustrator { get; private set; } = illustrator;
         public List<Genre> Genre { get; private set; } = genre;
+        public decimal Frete => this.CalculateFrete();
     }
 
 

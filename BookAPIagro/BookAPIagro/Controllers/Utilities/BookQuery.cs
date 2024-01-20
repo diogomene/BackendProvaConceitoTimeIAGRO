@@ -1,9 +1,17 @@
 ﻿using BookAPIagro.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookAPIagro.Controllers.Utilities
 {
+    public enum OrderType
+    {
+        [Description("Ascending Order")]
+        Asc,
+        [Description("Descending Order")]
+        Desc
+    }
     public class BookQuery
     {
         public string? Title { get; set; } = default;
@@ -16,5 +24,6 @@ namespace BookAPIagro.Controllers.Utilities
         public List<string>? Author { get; set; } = default;
         public List<string>? Illustrator { get; set; } = default;
         public List<string>? Genre { get; set; } = default;
+        public OrderType? orderPriceBy { get; set; } = default;
     }
 }

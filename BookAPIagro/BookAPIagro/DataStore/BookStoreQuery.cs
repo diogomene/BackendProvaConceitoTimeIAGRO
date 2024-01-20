@@ -1,4 +1,5 @@
-﻿using BookAPIagro.Entities;
+﻿using BookAPIagro.Controllers.Utilities;
+using BookAPIagro.Entities;
 
 namespace BookAPIagro.DataStore {
     public static class BookStoreQuery
@@ -51,6 +52,12 @@ namespace BookAPIagro.DataStore {
             return new BookStoreList(
                 bookStore.BookList.FindAll(b => b.Illustrator.Any(bookIllustrator => illustrators.Any(searchedIllustrator=> bookIllustrator.Name.Contains(searchedIllustrator, StringComparison.OrdinalIgnoreCase) )))
                 );
+        }
+
+        public static BookStoreList OrderByPrice(this BookStoreList bookStore, OrderType orderType)
+        {
+            IEnumerable<Book> res = (bookStore.BookList.OrderBy(b => b.Price * (orderType == OrderType.Desc ? -1 : 1)));
+            return new BookStoreList(res.ToList());
         }
     }
 
